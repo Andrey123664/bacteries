@@ -60,6 +60,7 @@ class LocalPlayer:
         self.color = 'green'
         self.w_vision = 800
         self.h_vision = 600
+        self.ratio=1
 
     def __repr__(self):
         return self.name
@@ -86,6 +87,12 @@ class LocalPlayer:
             self.y = self.size
         elif self.y > height_room - self.size:
             self.y = height_room - self.size
+        if self.size>=self.w_vision/4 and self.w_vision<=width_room and self.h_vision<=height_room:
+            self.ratio*=2
+            self.w_vision=800*self.ratio
+            self.h_vision=600*self.ratio
+
+
 
     def load(self):
         self.x = self.db.x
@@ -226,7 +233,12 @@ while run:
                     foods.remove(food)
                     print(f'{player_1=}, {player_1.size=}')
                 if player_1.address is not None and food.size != 0:
-                    pass
+                    x_=str(round(dist_x/player_1.ratio))
+                    y_=str(round(dist_y/player_1.ratio))
+                    size_=str(round(food.size/player_1.ratio))
+                    color_=food.color
+                    data=f'{x_} {y_} {size_} {color_}'
+                    visible_bacteries[player_1.id].append(data)
 
         for j in range(i + 1, len(pairs)):
 

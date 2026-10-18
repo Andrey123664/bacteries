@@ -1,6 +1,5 @@
 .idea
 .venv
-client_window.py
-strip_2.py
-main/bacteries.db
-main/__pycache__/
+bacteries.db
+
+

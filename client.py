@@ -87,9 +87,10 @@ def draw_bacteries(data):
         y = center[1] + int(data[1])
         size = int(data[2])
         color = data[3]
-        name = data[4]
         pygame.draw.circle(screen, color, (x, y), size)
-        draw_text(screen, name, 'black', x, y)
+        if len(data) > 4:
+            name = data[4]
+            draw_text(screen, name, 'black', x, y)
 
 
 app = QtWidgets.QApplication(sys.argv)
@@ -129,8 +130,9 @@ while run:
                 vector = 0, 0
             if vector != old_vector:
                 old_vector = vector
-                
+
                 client_socket.send(f'<{vector[0]},{vector[1]}>'.encode())
+
     data = client_socket.recv(1024).decode()
     screen.fill('white')
     grid.draw(screen, width, height)
